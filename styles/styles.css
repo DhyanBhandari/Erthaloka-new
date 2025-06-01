@@ -5,7 +5,7 @@ body, html {
 }
 
 .parallax {
-            background-image: url('assets/images/background-image.jpg'); /* Updated to match existing file */
+            background-image: url('../assets/background-image.jpg'); /* Updated to match existing file */
             height: 100vh;
             background-attachment: fixed;
             background-position: center;

@@ -1,8 +1,575 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>ErthaGyana</title><script src="https://cdn.tailwindcss.com"></script></head>
-<body class="bg-purple-900 text-white">
-<header class="text-center p-6"><h1 class="text-4xl font-bold">📚 ErthaGyana</h1><p>Knowledge Sharing & Wisdom Systems</p></header>
-<section class="p-6 max-w-5xl mx-auto">
-<p>ErthaGyana is the learning layer of ErthaLoka...</p>
-</section></body></html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ErthaGyana - The Wisdom Path of ErthaLoka</title>
+    <meta name="description" content="ErthaGyana - Reimagining Learning Through Nature, Purpose, and Community. Alternative education rooted in sustainability and innovation.">
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="assets/images/web logo.png" type="image/png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Poppins Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Animate.css -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Lottie -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.157.0/three.min.js"></script>
+    
+    <!-- EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #0d4f3c 50%, #1a2332 75%, #0f172a 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+        
+        .glass-card {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #22c55e, #10b981, #06d6a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-link {
+            position: relative;
+            color: #6b7280;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0%;
+            height: 2px;
+            background-color: #16a34a;
+            transition: width 0.4s ease;
+        }
+        
+        .nav-link:hover {
+            color: #16a34a;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-link {
+            display: block;
+            padding: 0.75rem 0;
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            border-bottom: 1px solid rgba(34, 197, 94, 0.2);
+        }
+        
+        .mobile-link:hover {
+            color: #22c55e;
+        }
+        
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translate(0, 0px); }
+            50% { transform: translate(0, -15px); }
+            100% { transform: translate(0, -0px); }
+        }
+
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(34, 197, 94, 0.6); }
+            100% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.3); }
+        }
+    </style>
+</head>
+<body class="text-white" id="body">
+    <!-- Navigation -->
+    <nav id="mainNav" class="fixed top-0 w-full z-50 bg-white shadow-md transition-all duration-300">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="#home" class="group flex items-center space-x-2">
+                    <img src="assets/images/logo3.png" alt="ErthaLoka Logo" class="w-44 h-11 group-hover:animate__animated group-hover:animate__pulse">
+                </a>
+                
+                <!-- Mobile Menu Button -->
+                <button id="menuBtn" class="md:hidden focus:outline-none">
+                    <svg class="w-8 h-8 text-green-600 transition-transform duration-300 hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-16 6h16"/>
+                    </svg>
+                </button>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 text-md font-medium">
+                    <a href="#about" class="nav-link">About Us</a>
+                    <a href="#ecosystem" class="nav-link">Ecosystem</a>
+                    <a href="#innovation" class="nav-link">Innovation</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-black text-white px-6 pt-4 pb-6 space-y-4 shadow-md max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+            <a href="#about" class="mobile-link">About Us</a>
+            <a href="#ecosystem" class="mobile-link">Ecosystem</a>
+            <a href="#innovation" class="mobile-link">Innovation</a>
+            <a href="#contact" class="mobile-link">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20">
+        <div class="absolute inset-0 z-0">
+            <div class="w-full h-full bg-gradient-to-br from-green-900/20 via-black/50 to-blue-900/20"></div>
+        </div>
+        
+        <div class="relative z-10 container mx-auto px-6 text-center">
+            <div class="animate__animated animate__fadeInDown">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                    🌱 <span class="gradient-text">ErthaGyana</span>
+                </h1>
+                <h2 class="text-2xl md:text-4xl font-light mb-8 text-green-300">
+                    The Wisdom Path of ErthaLoka
+                </h2>
+                <p class="text-xl md:text-2xl mb-12 max-w-4xl mx-auto text-gray-300">
+                    ✨ "Reimagining Learning Through Nature, Purpose, and Community."
+                </p>
+                <button onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})" 
+                        class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 pulse-glow">
+                    Explore Our Journey
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="glass-card rounded-2xl p-8 md:p-12 animate__animated animate__fadeInUp">
+                <div class="flex items-center justify-center mb-8">
+                    <i data-lucide="compass" class="w-12 h-12 text-green-400 mr-4"></i>
+                    <h2 class="text-4xl font-bold gradient-text">About ErthaGyana</h2>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                            ErthaGyana is the educational heartbeat of ErthaLoka — a living, evolving learning system inspired by regenerative living, ecological wisdom, and conscious technology.
+                        </p>
+                        <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                            Unlike traditional academic institutions, ErthaGyana doesn't prepare learners just for jobs — we prepare them for <span class="text-green-400 font-semibold">life, purpose, and planetary citizenship</span>.
+                        </p>
+                        <p class="text-lg text-gray-300 leading-relaxed">
+                            We believe education should not be confined to classrooms. It must grow with the land, breathe with the community, and evolve with human purpose.
+                        </p>
+                    </div>
+                    <div class="flex justify-center">
+                        <div class="w-64 h-64 bg-gradient-to-br from-green-600 to-blue-600 rounded-full flex items-center justify-center floating">
+                            <i data-lucide="tree-pine" class="w-32 h-32 text-white"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curriculum Section (Ecosystem) -->
+    <section id="ecosystem" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4 gradient-text">📚 Our Alternative Syllabus & Curriculum</h2>
+            <p class="text-center text-gray-300 mb-12 text-lg">Our unique curriculum is non-linear, interdisciplinary, and deeply rooted in real-world experiences.</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Nature-Based Learning -->
+                <div class="glass-card rounded-xl p-6 hover-scale">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mr-4">
+                            <i data-lucide="leaf" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-green-400">🌿 Nature-Based Learning</h3>
+                    </div>
+                    <ul class="text-gray-300 space-y-2">
+                        <li>• Understanding permaculture & biodiversity</li>
+                        <li>• Daily interaction with land & seasons</li>
+                        <li>• Ecological restoration practices</li>
+                        <li>• Native knowledge systems</li>
+                    </ul>
+                </div>
+                
+                <!-- Purpose-Centric -->
+                <div class="glass-card rounded-xl p-6 hover-scale">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mr-4">
+                            <i data-lucide="heart" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-blue-400">💡 Purpose-Centric Curriculum</h3>
+                    </div>
+                    <ul class="text-gray-300 space-y-2">
+                        <li>• Identifying personal calling</li>
+                        <li>• Storytelling & reflection sessions</li>
+                        <li>• Empathy practices</li>
+                        <li>• Community role development</li>
+                    </ul>
+                </div>
+                
+                <!-- Integrated Sciences -->
+                <div class="glass-card rounded-xl p-6 hover-scale">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mr-4">
+                            <i data-lucide="flask-conical" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-purple-400">🔬 Integrated Sciences</h3>
+                    </div>
+                    <ul class="text-gray-300 space-y-2">
+                        <li>• Hands-on problem-solving</li>
+                        <li>• Clean tech exploration</li>
+                        <li>• Community robotics & AI</li>
+                        <li>• Design thinking approach</li>
+                    </ul>
+                </div>
+                
+                <!-- Self-Led Inquiry -->
+                <div class="glass-card rounded-xl p-6 hover-scale">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-yellow-600 rounded-full flex items-center justify-center mr-4">
+                            <i data-lucide="brain" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-yellow-400">🧠 Self-Led Inquiry</h3>
+                    </div>
+                    <ul class="text-gray-300 space-y-2">
+                        <li>• Real-world project choices</li>
+                        <li>• Facilitator guidance</li>
+                        <li>• Growth over grades</li>
+                        <li>• Skill portfolios</li>
+                    </ul>
+                </div>
+                
+                <!-- Arts & Culture -->
+                <div class="glass-card rounded-xl p-6 hover-scale md:col-span-2 lg:col-span-1">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center mr-4">
+                            <i data-lucide="palette" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-pink-400">🎭 Arts & Culture</h3>
+                    </div>
+                    <ul class="text-gray-300 space-y-2">
+                        <li>• Folk music & regenerative art</li>
+                        <li>• Dance & movement expression</li>
+                        <li>• Public speaking & storytelling</li>
+                        <li>• Community media creation</li>
+                    </ul>
+                </div>
+
+                <!-- workshop and event -->
+                <div class="glass-card rounded-xl p-6 hover-scale md:col-span-2 lg:col-span-1">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center mr-4">
+                            <i data-lucide="palette" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-pink-400">📅workshop and event</h3>
+                    </div>
+                    <ul class="text-gray-300 space-y-2">
+                        <li>• Monthly Learning Sessions</li>
+                        <li>• Expert Guest Lectures</li>
+                        <li>• Hands-on Skill Building</li>
+                        <li>• Annual Knowledge Summit</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Spaces Section -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">🛖 Our Learning Spaces</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass-card rounded-xl p-6 text-center hover-scale">
+                    <i data-lucide="home" class="w-12 h-12 text-green-400 mx-auto mb-4"></i>
+                    <h3 class="font-bold text-lg mb-2">Bamboo Classrooms</h3>
+                    <p class="text-gray-300 text-sm">Natural learning spaces in ErthaGrama</p>
+                </div>
+                
+                <div class="glass-card rounded-xl p-6 text-center hover-scale">
+                    <i data-lucide="book-open" class="w-12 h-12 text-blue-400 mx-auto mb-4"></i>
+                    <h3 class="font-bold text-lg mb-2">Forest Libraries</h3>
+                    <p class="text-gray-300 text-sm">Reading spaces among the trees</p>
+                </div>
+                
+                <div class="glass-card rounded-xl p-6 text-center hover-scale">
+                    <i data-lucide="telescope" class="w-12 h-12 text-purple-400 mx-auto mb-4"></i>
+                    <h3 class="font-bold text-lg mb-2">Garden Observatories</h3>
+                    <p class="text-gray-300 text-sm">Science exploration outdoors</p>
+                </div>
+                
+                <div class="glass-card rounded-xl p-6 text-center hover-scale">
+                    <i data-lucide="mic" class="w-12 h-12 text-yellow-400 mx-auto mb-4"></i>
+                    <h3 class="font-bold text-lg mb-2">Digital Media Rooms</h3>
+                    <p class="text-gray-300 text-sm">Podcasting & content creation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Innovation Section (Ertha Yatra) -->
+    <section id="innovation" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="glass-card rounded-2xl p-8 md:p-12">
+                <div class="text-center mb-8">
+                    <h2 class="text-4xl font-bold gradient-text mb-4">🌍 Learning Through Travel: "Ertha Yatra"</h2>
+                    <p class="text-lg text-gray-300">Curated learning journeys and field immersions</p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-2xl font-bold text-green-400 mb-4">Our Yatra Experiences:</h3>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-center">
+                                <i data-lucide="map-pin" class="w-5 h-5 text-green-400 mr-3"></i>
+                                Visiting forest-dwelling tribal communities
+                            </li>
+                            <li class="flex items-center">
+                                <i data-lucide="hammer" class="w-5 h-5 text-blue-400 mr-3"></i>
+                                Learning from natural builders & eco-architects
+                            </li>
+                            <li class="flex items-center">
+                                <i data-lucide="wheat" class="w-5 h-5 text-yellow-400 mr-3"></i>
+                                Shadowing regenerative farmers
+                            </li>
+                            <li class="flex items-center">
+                                <i data-lucide="tree-palm" class="w-5 h-5 text-purple-400 mr-3"></i>
+                                Exploring sacred groves & ancient systems
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="flex items-center justify-center">
+                        <div class="w-48 h-48 bg-gradient-to-br from-green-600 via-blue-600 to-purple-600 rounded-full flex items-center justify-center floating">
+                            <i data-lucide="globe" class="w-24 h-24 text-white"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- For Whom Section -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">👶 For Whom?</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass-card rounded-xl p-6 text-center hover-scale">
+                    <i data-lucide="baby" class="w-12 h-12 text-green-400 mx-auto mb-4"></i>
+                    <h3 class="font-bold text-lg mb-2 text-green-400">Young Learners</h3>
+                    <p class="text-gray-300 text-sm">7-18 years through community schooling pods</p>
+                </div>
+                
+                <div class="glass-card rounded-xl p-6 text-center hover-scale">
+                    <i data-lucide="rocket" class="w-12 h-12 text-blue-400 mx-auto mb-4"></i>
+                    <h3 class="font-bold text-lg mb-2 text-blue-400">Youth Explorers</h3>
+                    <p class="text-gray-300 text-sm">18-25 years through fellowships & internships</p>
+                </div>
+                
+                <div class="glass-card rounded-xl p-6 text-center hover-scale">
+                    <i data-lucide="users" class="w-12 h-12 text-purple-400 mx-auto mb-4"></i>
+                    <h3 class="font-bold text-lg mb-2 text-purple-400">Families</h3>
+                    <p class="text-gray-300 text-sm">Weekend and seasonal retreats</p>
+                </div>
+                
+                <div class="glass-card rounded-xl p-6 text-center hover-scale">
+                    <i data-lucide="graduation-cap" class="w-12 h-12 text-yellow-400 mx-auto mb-4"></i>
+                    <h3 class="font-bold text-lg mb-2 text-yellow-400">Alternative Seekers</h3>
+                    <p class="text-gray-300 text-sm">Home-schoolers & education innovators</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">🛠 What Makes ErthaGyana Different?</h2>
+            
+            <div class="glass-card rounded-2xl p-8 overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b border-green-600">
+                            <th class="py-4 px-6 text-xl font-bold text-red-400">Traditional Education</th>
+                            <th class="py-4 px-6 text-xl font-bold text-green-400">ErthaGyana</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-300">
+                        <tr class="border-b border-gray-700">
+                            <td class="py-4 px-6">Exam-based</td>
+                            <td class="py-4 px-6 text-green-300">Project-based</td>
+                        </tr>
+                        <tr class="border-b border-gray-700">
+                            <td class="py-4 px-6">Theory-first</td>
+                            <td class="py-4 px-6 text-green-300">Experience-first</td>
+                        </tr>
+                        <tr class="border-b border-gray-700">
+                            <td class="py-4 px-6">Competitive</td>
+                            <td class="py-4 px-6 text-green-300">Collaborative</td>
+                        </tr>
+                        <tr class="border-b border-gray-700">
+                            <td class="py-4 px-6">Isolated disciplines</td>
+                            <td class="py-4 px-6 text-green-300">Interdisciplinary learning</td>
+                        </tr>
+                        <tr class="border-b border-gray-700">
+                            <td class="py-4 px-6">Passive consumption</td>
+                            <td class="py-4 px-6 text-green-300">Active contribution</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6">Certification-driven</td>
+                            <td class="py-4 px-6 text-green-300">Purpose & impact-driven</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section (Join the Movement) -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="glass-card rounded-2xl p-8 md:p-12 text-center">
+                <h2 class="text-4xl font-bold gradient-text mb-6">🚀 Join the ErthaGyana Movement</h2>
+                <p class="text-xl text-gray-300 mb-8">We're not just building an alternative school. We're building a new paradigm of learning for a new planet.</p>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+                    <div class="glass-card rounded-xl p-6 hover-scale">
+                        <i data-lucide="users" class="w-8 h-8 text-green-400 mx-auto mb-3"></i>
+                        <h3 class="font-bold mb-2">📩 Partner with us</h3>
+                        <p class="text-gray-300 text-sm">Help design curriculum</p>
+                    </div>
+                    
+                    <div class="glass-card rounded-xl p-6 hover-scale">
+                        <i data-lucide="user-plus" class="w-8 h-8 text-blue-400 mx-auto mb-3"></i>
+                        <h3 class="font-bold mb-2">🧑‍🏫 Volunteer</h3>
+                        <p class="text-gray-300 text-sm">Teach and mentor learners</p>
+                    </div>
+                    
+                    <div class="glass-card rounded-xl p-6 hover-scale">
+                        <i data-lucide="heart" class="w-8 h-8 text-purple-400 mx-auto mb-3"></i>
+                        <h3 class="font-bold mb-2">👨‍👩‍👧‍👦 Enroll</h3>
+                        <p class="text-gray-300 text-sm">Join an ErthaPod</p>
+                    </div>
+                    
+                    <div class="glass-card rounded-xl p-6 hover-scale">
+                        <i data-lucide="wrench" class="w-8 h-8 text-yellow-400 mx-auto mb-3"></i>
+                        <h3 class="font-bold mb-2">🛠 Contribute</h3>
+                        <p class="text-gray-300 text-sm">Tools, stories, or spaces</p>
+                    </div>
+                    
+                    <div class="glass-card rounded-xl p-6 hover-scale">
+                        <i data-lucide="mic" class="w-8 h-8 text-pink-400 mx-auto mb-3"></i>
+                        <h3 class="font-bold mb-2">🎤 Share Wisdom</h3>
+                        <p class="text-gray-300 text-sm">Inspire our learners</p>
+                    </div>
+                    
+                    <div class="glass-card rounded-xl p-6 hover-scale">
+                        <i data-lucide="globe" class="w-8 h-8 text-teal-400 mx-auto mb-3"></i>
+                        <h3 class="font-bold mb-2">🌍 Connect</h3>
+                        <p class="text-gray-300 text-sm">Join our global network</p>
+                    </div>
+                </div>
+                
+                <div class="mt-12">
+                    <button onclick="window.location.href='mailto:connect@erthaloka.com'" 
+                            class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 mr-4 pulse-glow">
+                        Get Involved
+                    </button>
+                    <button onclick="window.location.href='https://chat.whatsapp.com/LUlrfRH2c17A2PmHAUaajl'" 
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105">
+                        Join WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="glass-card rounded-2xl p-8 md:p-12 text-center">
+                <h2 class="text-4xl font-bold gradient-text mb-6">Get in Touch with ErthaGyana
+</h2>
+                <p class="text-xl text-gray-300 mb-8">Have questions about our learning programs or want to contribute to our knowledge base? We'd love to hear from you!</p>
+
+<br>
+
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                    <a href="mailto:gyana@erthaloka.com" class="flex items-center gap-3 text-green-400 hover:text-green-300 text-lg">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                        gyana@erthaloka.com
+                    </a>
+                    <a href="../index.html#contact" class="bg-yellow-500 text-black px-6 py-3 rounded-full font-semibold hover:bg-yellow-400 transition-all">
+                        Contact Main Office
+                    </a>
+               </div>
+           </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-2xl font-bold text-yellow-400">ErthaGyana</h3>
+                    <p class="text-gray-400">Knowledge for Regenerative Living</p>
+                </div>
+                <div class="flex gap-6">
+                    <a href="../index.html" class="text-gray-400 hover:text-white transition-colors">Home</a>
+                    <a href="../index.html#ecosystem" class="text-gray-400 hover:text-white transition-colors">Ecosystem</a>
+                    <a href="../index.html#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
+                <p>&copy; 2025 ErthaLoka - ErthaGyana. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
